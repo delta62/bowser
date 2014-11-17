@@ -2,10 +2,13 @@ require_relative 'controllers/file.rb'
 
 module Bowser
   class ControllerFactory
-    def self.construct(path)
-      file = File.new(path)
+    def initialize(loader)
+      @loader = loader
+    end
 
-      if File.directory? path
+    def controller(path)
+      file = @loader.load(path)
+      if File.directory? file.path
         DirController.new(file)
       else
         FileController.new(file)
