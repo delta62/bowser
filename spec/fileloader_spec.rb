@@ -47,7 +47,7 @@ describe Bowser::FileLoader do
         allow(file).to receive(:readable?).and_return(false)
       end
 
-      it 'should throw when the file is not readable' do
+      it 'should throw an error' do
         expect { loader.load(path) }.to raise_error
       end
     end

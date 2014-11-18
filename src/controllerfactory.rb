@@ -1,4 +1,5 @@
 require_relative 'controllers/file.rb'
+require_relative 'controllers/dir.rb'
 
 module Bowser
   class ControllerFactory
