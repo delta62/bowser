@@ -12,31 +12,34 @@ describe Bowser::DirReader do
   describe '#each_entry' do
     let(:dir) { instance_double(Dir) }
     let(:reader) { described_class.new(dir) }
+    let(:entries) { ['.', '..', 'a.txt', 'b'] }
 
     before(:example) do
-      allow(dir).to receive(:each)
-        .and_yield('.')
-        .and_yield('..')
-        .and_yield('a.txt')
-        .and_yield('b')
+      stub = allow(dir).to receive(:each)
+      entries.each {|path| stub.and_yield(path) }
     end
 
     it 'should include all entries' do
       yield_count = 0
       reader.each_entry {|e| yield_count += 1 }
-      expect(yield_count).to eq(4)
+      expect(yield_count).to eq(entries.length)
+    end
+
+    it 'should yield for each entry' do
+      expect {|b| reader.each_entry(&b) }.to yield_control.exactly(entries.length).times
     end
 
     it 'should create a resource for each entry' do
-      last = nil
-      reader.each_entry {|e| last = e }
-      expect(last).to be_an_instance_of(Bowser::Resource)
+      reader.each_entry do |resource|
+        expect(resource).to be_an_instance_of(Bowser::Resource)
+      end
     end
 
     it 'should set the path key for each resource' do
-      reader.each_entry do |e|
-        expect(e.fields['path']).to eq('.')
-        break
+      i = 0
+      reader.each_entry do |resource|
+        expect(resource.fields['path']).to eq(entries[i])
+        i += 1
       end
     end
   end
