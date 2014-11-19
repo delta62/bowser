@@ -6,5 +6,9 @@ module Bowser
     def initialize
       @fields = {}
     end
+
+    def as_json
+      @fields
+    end
   end
 end
