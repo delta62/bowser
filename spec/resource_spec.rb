@@ -12,6 +12,10 @@ describe Bowser::Resource do
       expect(resource.fields).to respond_to(:[])
     end
 
+    it 'should use index assignment' do
+      expect(resource.fields).to respond_to('[]=')
+    end
+
     it 'should fetch items by key' do
       resource.fields['foo'] = 'bar'
       expect(resource.fields['foo']).to eq('bar')
@@ -43,6 +47,29 @@ describe Bowser::Resource do
       it 'should return an empty hash' do
         expect(subject.as_json).to eq({})
       end
+    end
+  end
+
+  describe '#unmap' do
+    let(:mapper) { instance_double(Bowser::Mapper) }
+    let(:unmapped) { 'unmapped_path' }
+
+    before(:example) do
+      allow(mapper).to receive(:unmap).and_return(unmapped)
+      field = Bowser::Field.new('foo', 'bar')
+      field.unmap = true
+
+      subject.fields[:a] = field
+      subject.fields[:b] = Bowser::Field.new('foo', 'bar')
+      subject.unmap(mapper)
+    end
+
+    it 'should unmap relevant fields' do
+      expect(subject.fields[:a].val).to eq(unmapped)
+    end
+
+    it 'should not unmap irrelivant fields' do
+      expect(subject.fields[:b].val).not_to eq(unmapped)
     end
   end
 end

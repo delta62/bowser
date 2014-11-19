@@ -11,7 +11,7 @@ class RestApp < Sinatra::Base
     set :base, '/Users/sam'
   end
 
-  get '/fs/*' do
+  get '/*' do
     mapper = Bowser::Mapper.new(settings.base)
     path = mapper.map(params[:splat][0])
     loader = Bowser::FileLoader.new
