@@ -1,3 +1,5 @@
+require_relative 'resource.rb'
+
 module Bowser
   class DirReader
     def initialize(dir)

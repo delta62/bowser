@@ -2,25 +2,25 @@ require 'sinatra/base'
 require 'sinatra/json'
 require 'pathname'
 
-class Bowser < Sinatra::Base
+require_relative './mapper.rb'
+require_relative './fileloader.rb'
+require_relative './controllerfactory.rb'
+
+class RestApp < Sinatra::Base
   configure do
     set :base, '/Users/sam'
   end
 
   get '/fs/*' do
-    entries = [ ]
-    base = settings.base
-    path = params[:splat][0]
-    fullpath = Pathname.new(base) + path
-    Dir.entries(fullpath.to_s).each do |name|
-      entry = { :name => name }
-      if File.directory? (fullpath + name).to_s
-        entry[:type] = 'd'
-      else
-        entry[:type] = 'f'
-      end
-      entries.push entry
+    relpath = params[:splat][0]
+    mapper = Bowser::Mapper.new(settings.base, relpath)
+    path = mapper.map
+    loader = Bowser::FileLoader.new
+    factory = Bowser::ControllerFactory.new(loader)
+    controller = factory.controller(path)
+    controller.read do |resource|
+      p resource
     end
-    json({ :entries => entries })
+    'hello world'
   end
 end
