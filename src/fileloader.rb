@@ -9,7 +9,11 @@ module Bowser
         raise "Cannot open #{path}, because it is not readable"
       end
 
-      File.new(path, 'r')
+      if File.directory? path
+        Dir.new(path)
+      else
+        File.new(path, 'r')
+      end
     end
   end
 end

@@ -26,8 +26,16 @@ describe Bowser::ControllerFactory do
     end
 
     describe 'when passed a path to a directory' do
+      let(:readerstub) { instance_double(Bowser::DirReader) }
+      let(:dirstub) { instance_double(Dir) }
+
       before(:example) do
+        class_stub = class_double(Bowser::DirReader).as_stubbed_const
+        allow(class_stub).to receive(:new).and_return(readerstub)
+
         allow(File).to receive(:directory?).and_return(true)
+        allow(dirstub).to receive(:path).and_return(path)
+        allow(loader).to receive(:load).and_return(dirstub)
       end
 
       it 'should return a DirectoryController' do
@@ -35,9 +43,15 @@ describe Bowser::ControllerFactory do
         expect(ret).to be_an_instance_of(Bowser::DirController)
       end
 
-      it 'should pass a file to the DirectoryController' do
+      it 'should pass a directory to the DirectoryController' do
         controller = class_double(Bowser::DirController).as_stubbed_const
-        expect(controller).to receive(:new).with(filestub)
+        expect(controller).to receive(:new).with(readerstub)
+        factory.controller(path)
+      end
+
+      it 'should pass a DirReader to the DirectoryController' do
+        controller = class_double(Bowser::DirController).as_stubbed_const
+        expect(controller).to receive(:new).with(readerstub)
         factory.controller(path)
       end
     end

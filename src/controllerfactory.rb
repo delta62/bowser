@@ -10,7 +10,8 @@ module Bowser
     def controller(path)
       file = @loader.load(path)
       if File.directory? file.path
-        DirController.new(file)
+        reader = DirReader.new(path)
+        DirController.new(reader)
       else
         FileController.new(file)
       end
