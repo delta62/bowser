@@ -3,6 +3,7 @@ require_relative '../src/field.rb'
 describe Bowser::Field do
   let(:key) { 'foo' }
   let(:val) { 'bar' }
+  subject { described_class.new(key, val) }
 
   describe '::new' do
     it 'should require a key and a value' do
@@ -11,23 +12,34 @@ describe Bowser::Field do
   end
 
   describe '#key' do
-    let(:field) { described_class.new(key, val) }
-
     it 'should return the key' do
-      expect(field.key).to eq(key)
+      expect(subject.key).to eq(key)
     end
   end
 
   describe '#val' do
-    let(:field) { described_class.new(key, val) }
-
     it 'should return the value' do
-      expect(field.val).to eq(val)
+      expect(subject.val).to eq(val)
     end
 
     it 'should allow modification' do
-      field.val = 88
-      expect(field.val).to eq(88)
+      subject.val = 88
+      expect(subject.val).to eq(88)
+    end
+  end
+
+  describe '#unmap' do
+    it 'should default to falsey' do
+      expect(subject.unmap).to be_falsey
+    end
+
+    it 'should allow set' do
+      subject.unmap = true
+    end
+
+    it 'should allow get' do
+      subject.unmap = 88
+      expect(subject.unmap).to eq(88)
     end
   end
 end
