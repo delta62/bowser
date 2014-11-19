@@ -7,9 +7,10 @@ module Bowser
     end
 
     def each_entry
-      @dir.each do |path|
+      path = @dir.path
+      @dir.each do |filename|
         r = Resource.new
-        r.fields['path'] = path
+        r.fields['path'] = File.join(path, filename)
         yield r
       end
     end

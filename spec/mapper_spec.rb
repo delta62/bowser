@@ -1,22 +1,33 @@
 require_relative '../src/mapper.rb'
 
 describe Bowser::Mapper do
-  let(:mapper) { described_class.new('/base/path', 'rel/path') }
+  let(:base) { '/base/path' }
+  let(:rel) { '/rel/path' }
+  let(:longpath) { File.join(base, rel) }
+  subject { described_class.new(base) }
 
   describe '::new' do
-
-    it 'should read a base path' do
-      expect(mapper.basepath).to eq('/base/path')
-    end
-
-    it 'should read a relative path' do
-      expect(mapper.relpath).to eq('rel/path')
+    it 'should accept a base path' do
+      described_class.new(base)
     end
   end
 
   describe '#map' do
     it 'should concatenate base and rel paths' do
-      expect(mapper.map).to eq('/base/path/rel/path')
+      expect(subject.map(rel)).to eq('/base/path/rel/path')
+    end
+  end
+
+  describe '#unmap' do
+    it 'should remove base path' do
+      expect(subject.unmap(longpath)).to eq(rel)
+    end
+
+    context "when path doesn't start with basepath" do
+      it 'should throw an error' do
+        jankypath = File.join('asdf', rel)
+        expect { subject.unmap(jankypath) }.to raise_error
+      end
     end
   end
 end

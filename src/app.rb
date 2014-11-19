@@ -12,15 +12,11 @@ class RestApp < Sinatra::Base
   end
 
   get '/fs/*' do
-    relpath = params[:splat][0]
-    mapper = Bowser::Mapper.new(settings.base, relpath)
-    path = mapper.map
+    mapper = Bowser::Mapper.new(settings.base)
+    path = mapper.map(params[:splat][0])
     loader = Bowser::FileLoader.new
     factory = Bowser::ControllerFactory.new(loader)
     controller = factory.controller(path)
-    controller.read do |resource|
-      p resource
-    end
-    'hello world'
+    json controller.as_json
   end
 end

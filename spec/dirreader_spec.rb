@@ -11,10 +11,12 @@ describe Bowser::DirReader do
 
   describe '#each_entry' do
     let(:dir) { instance_double(Dir) }
+    let(:path) { '/foo/bar/baz' }
     let(:reader) { described_class.new(dir) }
     let(:entries) { ['.', '..', 'a.txt', 'b'] }
 
     before(:example) do
+      allow(dir).to receive(:path).and_return(path)
       stub = allow(dir).to receive(:each)
       entries.each {|path| stub.and_yield(path) }
     end
@@ -38,7 +40,8 @@ describe Bowser::DirReader do
     it 'should set the path key for each resource' do
       i = 0
       reader.each_entry do |resource|
-        expect(resource.fields['path']).to eq(entries[i])
+        expectedpath = File.join(path, entries[i])
+        expect(resource.fields['path']).to eq(expectedpath)
         i += 1
       end
     end
