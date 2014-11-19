@@ -7,3 +7,4 @@ gem 'mongoid'
 
 # Test
 gem 'rspec'
+gem 'fuubar'
