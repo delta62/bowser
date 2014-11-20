@@ -17,6 +17,6 @@ class RestApp < Sinatra::Base
     loader = Bowser::FileLoader.new
     factory = Bowser::ControllerFactory.new(loader)
     controller = factory.controller(path)
-    json controller.as_json
+    json controller.as_json(mapper)
   end
 end

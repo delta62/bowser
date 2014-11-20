@@ -8,10 +8,11 @@ module Bowser
     end
 
     def each_entry
-      path = @dir.path
+      base = @dir.path
       @dir.each do |filename|
         r = Resource.new
-        pathfield = Field.new('path', val: File.join(path, filename))
+        path = File.join(base, filename)
+        pathfield = Field.new('path', val: path, unmap: true)
         r.fields.add(pathfield)
         yield r
       end
