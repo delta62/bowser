@@ -56,11 +56,9 @@ describe Bowser::Resource do
 
     before(:example) do
       allow(mapper).to receive(:unmap).and_return(unmapped)
-      field = Bowser::Field.new('foo', 'bar')
-      field.unmap = true
 
-      subject.fields[:a] = field
-      subject.fields[:b] = Bowser::Field.new('foo', 'bar')
+      subject.fields[:a] = Bowser::Field.new('foo', unmap: true)
+      subject.fields[:b] = Bowser::Field.new('foo')
       subject.unmap(mapper)
     end
 
