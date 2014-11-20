@@ -1,4 +1,5 @@
 require_relative 'resource.rb'
+require_relative 'field.rb'
 
 module Bowser
   class DirReader
@@ -10,7 +11,8 @@ module Bowser
       path = @dir.path
       @dir.each do |filename|
         r = Resource.new
-        r.fields['path'] = File.join(path, filename)
+        pathfield = Field.new('path', val: File.join(path, filename))
+        r.fields.add(pathfield)
         yield r
       end
     end

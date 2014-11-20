@@ -15,6 +15,10 @@ describe Bowser::FieldCollection do
       subject.add(field1)
       expect { subject.add(field1) }.to raise_error
     end
+
+    it 'should return self' do
+      expect(subject.add(field1)).to eq(subject)
+    end
   end
 
   # This is an alias of #get
@@ -22,8 +26,7 @@ describe Bowser::FieldCollection do
     let(:ndef) { 'undefined key' }
 
     before(:example) do
-      subject.add(field1)
-      subject.add(field2)
+      subject.add(field1).add(field2)
     end
     
     it 'should get fields by key' do
@@ -37,8 +40,7 @@ describe Bowser::FieldCollection do
 
   describe '#each' do
     before(:example) do
-      subject.add(field1)
-      subject.add(field2)
+      subject.add(field1).add(field2)
     end
 
     it 'should yield each element' do

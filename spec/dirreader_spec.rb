@@ -1,3 +1,4 @@
+require_relative '../src/fieldcollection.rb'
 require_relative '../src/dirreader.rb'
 
 describe Bowser::DirReader do
@@ -41,7 +42,8 @@ describe Bowser::DirReader do
       i = 0
       reader.each_entry do |resource|
         expectedpath = File.join(path, entries[i])
-        expect(resource.fields['path']).to eq(expectedpath)
+        pathfield = resource.fields['path']
+        expect(pathfield.val).to eq(expectedpath)
         i += 1
       end
     end

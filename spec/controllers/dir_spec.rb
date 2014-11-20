@@ -1,4 +1,6 @@
 require_relative '../../src/controllers/dir.rb'
+require_relative '../../src/dirreader.rb'
+require_relative '../../src/field.rb'
 
 describe Bowser::DirController do
   let(:reader) { instance_double(Bowser::DirReader) }
@@ -9,7 +11,8 @@ describe Bowser::DirController do
     stub = allow(reader).to receive(:each_entry)
     entries.each do |path|
       resource = Bowser::Resource.new
-      resource.fields['path'] = path
+      pathfield = Bowser::Field.new('path', val: path)
+      resource.fields.add(pathfield)
       stub.and_yield(resource)
     end
   end

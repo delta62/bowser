@@ -9,12 +9,11 @@ module Bowser
         raise "Cannot create duplicate field '#{field.key}'."
       end
       @fields << field
+      self
     end
 
     def get(key)
-      @fields.each do |field|
-        return field if field.key == key
-      end
+      @fields.each {|field| return field if field.key == key }
       nil
     end
     alias_method :[], :get

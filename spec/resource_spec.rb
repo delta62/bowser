@@ -1,33 +1,24 @@
+require_relative '../src/mapper.rb'
+require_relative '../src/field.rb'
 require_relative '../src/resource.rb'
+require_relative '../src/fieldcollection.rb'
 
 describe Bowser::Resource do
   let(:resource) { described_class.new }
 
   describe '#fields' do
-    it 'should be iterable' do
-      expect(resource.fields).to respond_to(:each)
-    end
-
-    it 'should use the index operator' do
-      expect(resource.fields).to respond_to(:[])
-    end
-
-    it 'should use index assignment' do
-      expect(resource.fields).to respond_to('[]=')
-    end
-
-    it 'should fetch items by key' do
-      resource.fields['foo'] = 'bar'
-      expect(resource.fields['foo']).to eq('bar')
+    it 'should be a FieldCollection' do
+      expect(subject.fields).to be_an_instance_of(Bowser::FieldCollection)
     end
   end
 
   describe '#as_json' do
     context 'when fields exist' do
       before(:example) do
-        subject.fields[:a] = 1
-        subject.fields[:b] = 2
-        subject.fields[:c] = 3
+        subject.fields
+          .add(Bowser::Field.new(:a, val: 1))
+          .add(Bowser::Field.new(:b, val: 2))
+          .add(Bowser::Field.new(:c, val: 3))
       end
 
       it 'should return a hash' do
@@ -56,18 +47,18 @@ describe Bowser::Resource do
 
     before(:example) do
       allow(mapper).to receive(:unmap).and_return(unmapped)
-
-      subject.fields[:a] = Bowser::Field.new('foo', unmap: true)
-      subject.fields[:b] = Bowser::Field.new('foo')
+      subject.fields
+        .add(Bowser::Field.new('foo', unmap: true))
+        .add(Bowser::Field.new('bar'))
       subject.unmap(mapper)
     end
 
     it 'should unmap relevant fields' do
-      expect(subject.fields[:a].val).to eq(unmapped)
+      expect(subject.fields['foo'].val).to eq(unmapped)
     end
 
     it 'should not unmap irrelivant fields' do
-      expect(subject.fields[:b].val).not_to eq(unmapped)
+      expect(subject.fields['bar'].val).not_to eq(unmapped)
     end
   end
 end
