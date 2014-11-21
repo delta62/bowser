@@ -1,5 +1,4 @@
-require_relative '../src/fieldcollection.rb'
-require_relative '../src/dirreader.rb'
+require 'spec_helper'
 
 describe Bowser::DirReader do
   let(:dir) { instance_double(Dir) }

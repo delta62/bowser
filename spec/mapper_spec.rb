@@ -1,4 +1,4 @@
-require_relative '../src/mapper.rb'
+require 'spec_helper'
 
 describe Bowser::Mapper do
   let(:base) { '/base/path' }

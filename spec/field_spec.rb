@@ -1,4 +1,4 @@
-require_relative '../src/field.rb'
+require 'spec_helper'
 
 describe Bowser::Field do
   let(:key) { 'foo' }

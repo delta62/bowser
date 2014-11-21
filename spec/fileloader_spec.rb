@@ -1,4 +1,4 @@
-require_relative '../src/fileloader.rb'
+require 'spec_helper'
 
 describe Bowser::FileLoader do
   let(:loader) { described_class.new }

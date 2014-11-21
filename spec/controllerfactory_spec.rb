@@ -1,5 +1,4 @@
-require_relative '../src/controllerfactory.rb'
-require_relative '../src/fileloader.rb'
+require 'spec_helper'
 
 describe Bowser::ControllerFactory do
   let(:loader) { instance_double(Bowser::FileLoader) }

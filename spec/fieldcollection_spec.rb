@@ -1,5 +1,4 @@
-require_relative '../src/field.rb'
-require_relative '../src/fieldcollection.rb'
+require 'spec_helper'
 
 describe Bowser::FieldCollection do
   let(:field1) { Bowser::Field.new('field1') }

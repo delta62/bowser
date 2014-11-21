@@ -1,7 +1,4 @@
-require_relative '../src/mapper.rb'
-require_relative '../src/field.rb'
-require_relative '../src/resource.rb'
-require_relative '../src/fieldcollection.rb'
+require 'spec_helper'
 
 describe Bowser::Resource do
   let(:resource) { described_class.new }

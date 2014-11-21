@@ -5,6 +5,7 @@ gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'mongoid'
 
-# Test
+# Test/CI
 gem 'rspec'
 gem 'fuubar'
+gem 'coveralls'
