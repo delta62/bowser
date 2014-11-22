@@ -20,11 +20,6 @@ describe Bowser::Field do
         expect(field.val).to eq(val)
       end
       
-      it 'should accept an :unmap parameter' do
-        field = described_class.new(key, unmap: true)
-        expect(field.unmap).to be_truthy
-      end
-
       it 'should throw with other parameters' do
         expect { described_class.new(key, foo: 'bar') }.to raise_error
       end
@@ -47,21 +42,6 @@ describe Bowser::Field do
     it 'should allow modification' do
       subject.val = 88
       expect(subject.val).to eq(88)
-    end
-  end
-
-  describe '#unmap' do
-    it 'should default to falsey' do
-      expect(subject.unmap).to be_falsey
-    end
-
-    it 'should allow set' do
-      subject.unmap = true
-    end
-
-    it 'should allow get' do
-      subject.unmap = 88
-      expect(subject.unmap).to eq(88)
     end
   end
 end

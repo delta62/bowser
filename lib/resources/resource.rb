@@ -15,11 +15,5 @@ module Bowser
       end
       fields
     end
-
-    def unmap(mapper)
-      @fields.each do |field|
-        field.val = mapper.unmap(field.val) if field.unmap
-      end
-    end
   end
 end

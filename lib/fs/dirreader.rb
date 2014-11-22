@@ -12,7 +12,7 @@ module Bowser
       @dir.each do |filename|
         r = Resource.new
         path = File.join(base, filename)
-        pathfield = Field.new('path', val: path, unmap: true)
+        pathfield = Field.new('path', val: path)
         r.fields.add(pathfield)
         yield r
       end

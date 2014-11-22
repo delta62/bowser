@@ -9,7 +9,7 @@ describe Bowser::DirController do
     stub = allow(reader).to receive(:each_entry)
     entries.each do |path|
       resource = Bowser::Resource.new
-      pathfield = Bowser::Field.new('path', val: path, unmap: true)
+      pathfield = Bowser::Field.new('path', val: path)
       resource.fields.add(pathfield)
       stub.and_yield(resource)
     end

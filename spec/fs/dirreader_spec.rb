@@ -46,12 +46,5 @@ describe Bowser::DirReader do
         i += 1
       end
     end
-
-    it 'should set path to be unmapped' do
-      reader.each_entry do |resource|
-        expect(resource.fields['path'].unmap).to be_truthy
-      end
-    end
-
   end
 end
