@@ -1,10 +1,12 @@
-require_relative 'controllers/file.rb'
-require_relative 'controllers/dir.rb'
-require_relative 'dirreader.rb'
+require 'controllers/file'
+require 'controllers/dir'
+require 'fs/dirreader'
+require 'fs/fileloader'
 
 module Bowser
   class ControllerFactory
-    def initialize(loader)
+    def initialize(loader=nil)
+      loader ||= FileLoader.new
       @loader = loader
     end
 

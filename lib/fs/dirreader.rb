@@ -1,5 +1,5 @@
-require_relative 'resource.rb'
-require_relative 'field.rb'
+require 'resources/resource'
+require 'resources/field'
 
 module Bowser
   class DirReader
