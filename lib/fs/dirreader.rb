@@ -2,6 +2,9 @@ require 'resources/resource'
 require 'resources/field'
 
 module Bowser
+  # Iterate over the entries in a directory, creating resources for each
+  # one. Each entry is initialized with a 'path' field, which is set to
+  # the entity's absolute path on the filesystem.
   class DirReader
     def initialize(dir)
       @dir = dir

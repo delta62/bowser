@@ -1,6 +1,11 @@
 require 'resources/fieldcollection'
 
 module Bowser
+  # Represents a single file or folder entity.
+  #
+  # A resource has a collection of fields, which contain atomic pieces of
+  # metadata.
+  #
   class Resource
     attr_reader :fields
 

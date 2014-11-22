@@ -4,8 +4,10 @@ require 'fs/dirreader'
 require 'fs/fileloader'
 
 module Bowser
+  # Creates new FileControllers and DirControllers from files
+  # and directories, respectively
   class ControllerFactory
-    def initialize(loader=nil)
+    def initialize(loader = nil)
       loader ||= FileLoader.new
       @loader = loader
     end

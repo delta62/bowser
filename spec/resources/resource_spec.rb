@@ -23,11 +23,13 @@ describe Bowser::Resource do
       end
 
       it 'should use field keys as hash keys' do
-        expect {|b| subject.as_json.each_key(&b) }.to yield_successive_args(:a, :b, :c)
+        expect { |b| subject.as_json.each_key(&b) }
+          .to yield_successive_args(:a, :b, :c)
       end
 
       it 'should use field values as hash values' do
-        expect {|b| subject.as_json.each_value(&b) }.to yield_successive_args(1, 2, 3)
+        expect { |b| subject.as_json.each_value(&b) }
+          .to yield_successive_args(1, 2, 3)
       end
     end
 
@@ -38,4 +40,3 @@ describe Bowser::Resource do
     end
   end
 end
-

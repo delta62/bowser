@@ -18,17 +18,18 @@ describe Bowser::DirReader do
     before(:example) do
       allow(dir).to receive(:path).and_return(path)
       stub = allow(dir).to receive(:each)
-      entries.each {|path| stub.and_yield(path) }
+      entries.each { |path| stub.and_yield(path) }
     end
 
     it 'should include all entries' do
       yield_count = 0
-      reader.each_entry {|e| yield_count += 1 }
+      reader.each_entry { yield_count += 1 }
       expect(yield_count).to eq(entries.length)
     end
 
     it 'should yield for each entry' do
-      expect {|b| reader.each_entry(&b) }.to yield_control.exactly(entries.length).times
+      expect { |b| reader.each_entry(&b) }
+        .to yield_control.exactly(entries.length).times
     end
 
     it 'should create a resource for each entry' do

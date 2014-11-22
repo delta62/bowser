@@ -5,4 +5,3 @@ require 'coveralls'
 Coveralls.wear!
 
 require 'bowser'
-

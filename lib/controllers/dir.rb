@@ -1,11 +1,12 @@
 module Bowser
+  # Directory-specific handling for resources
   class DirController
     def initialize(dirreader)
       @reader = dirreader
     end
 
     def read
-      @reader.each_entry {|e| yield e }
+      @reader.each_entry { |e| yield e }
     end
 
     def as_json
@@ -17,5 +18,3 @@ module Bowser
     end
   end
 end
-
-

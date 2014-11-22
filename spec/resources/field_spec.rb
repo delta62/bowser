@@ -19,7 +19,7 @@ describe Bowser::Field do
         field = described_class.new(key, val: val)
         expect(field.val).to eq(val)
       end
-      
+
       it 'should throw with other parameters' do
         expect { described_class.new(key, foo: 'bar') }.to raise_error
       end

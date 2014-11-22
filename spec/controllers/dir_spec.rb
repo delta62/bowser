@@ -23,7 +23,8 @@ describe Bowser::DirController do
 
   describe '#read' do
     it 'should yield each child of the directory' do
-      expect {|b| subject.read(&b) }.to yield_control.exactly(entries.length).times
+      expect { |b| subject.read(&b) }
+        .to yield_control.exactly(entries.length).times
     end
 
     it 'should return a list of resouces' do

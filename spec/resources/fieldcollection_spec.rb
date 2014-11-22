@@ -27,7 +27,7 @@ describe Bowser::FieldCollection do
     before(:example) do
       subject.add(field1).add(field2)
     end
-    
+
     it 'should get fields by key' do
       expect(subject[field2.key]).to eq(field2)
     end
@@ -43,7 +43,7 @@ describe Bowser::FieldCollection do
     end
 
     it 'should yield each element' do
-      expect {|b| subject.each(&b) }.to yield_control.exactly(2).times
+      expect { |b| subject.each(&b) }.to yield_control.exactly(2).times
     end
   end
 end
