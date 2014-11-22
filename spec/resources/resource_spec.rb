@@ -37,26 +37,5 @@ describe Bowser::Resource do
       end
     end
   end
-
-  describe '#unmap' do
-    let(:mapper) { instance_double(Bowser::Mapper) }
-    let(:unmapped) { 'unmapped_path' }
-
-    before(:example) do
-      allow(mapper).to receive(:unmap).and_return(unmapped)
-      subject.fields
-        .add(Bowser::Field.new('foo', unmap: true))
-        .add(Bowser::Field.new('bar'))
-      subject.unmap(mapper)
-    end
-
-    it 'should unmap relevant fields' do
-      expect(subject.fields['foo'].val).to eq(unmapped)
-    end
-
-    it 'should not unmap irrelivant fields' do
-      expect(subject.fields['bar'].val).not_to eq(unmapped)
-    end
-  end
 end
 

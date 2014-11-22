@@ -8,10 +8,9 @@ module Bowser
       @reader.each_entry {|e| yield e }
     end
 
-    def as_json(mapper)
+    def as_json
       ret = []
       @reader.each_entry do |resource|
-        resource.unmap(mapper)
         ret << resource.as_json
       end
       ret

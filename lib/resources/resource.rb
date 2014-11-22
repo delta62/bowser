@@ -1,4 +1,4 @@
-require_relative 'fieldcollection.rb'
+require 'resources/fieldcollection'
 
 module Bowser
   class Resource
